@@ -2,13 +2,20 @@ const inputBox = document.getElementById('inputBox');
 const addBtn = document.getElementById('addBtn');
 const todoList = document.getElementById('todoList');
 
+let editTODO = null;
 
-const addTodo = ()=> {
-        const inputText = inputBox.value.trim();
-        if(inputText.length <= 0){
-            alert("You must write something in your TO-Do");
-            return false;
-        }
+const addTodo = () => {
+    const inputText = inputBox.value.trim();
+    if (inputText.length <= 0) {
+        alert("You must write something in your TO-Do");
+        return false;
+    }
+
+    if (addBtn.value === "Edit") {
+        editTODO.target.previousElementSibling.innerHTML = inputText;
+        addBtn.value = "Add";
+        inputBox.value = "";
+    } else {
 
         const li = document.createElement('li');
         const p = document.createElement('p');
@@ -23,10 +30,10 @@ const addTodo = ()=> {
         editBtn.classList.add("btn", "editBtn");
         li.appendChild(editBtn);
 
-         //Add Delete Btn
+        //Add Delete Btn
         const deleteBtn = document.createElement('button');
         deleteBtn.innerHTML = "Remove";
-        deleteBtn.classList.add("btn" , "deleteBtn");
+        deleteBtn.classList.add("btn", "deleteBtn");
         li.appendChild(deleteBtn);
 
 
@@ -34,18 +41,21 @@ const addTodo = ()=> {
         inputBox.value = "";
     }
 
-const updateTodo = (e)=>{
+}
+
+const updateTodo = (e) => {
     // console.log(e.target.innerHTML);
-    if(e.target.innerHTML === "Remove"){
-        todoList.removeChild(e.target.parentElement); 
+    if (e.target.innerHTML === "Remove") {
+        todoList.removeChild(e.target.parentElement);
     }
-    if(e.target.innerHTML === "Edit"){
+    if (e.target.innerHTML === "Edit") {
         inputBox.value = e.target.previousElementSibling.innerHTML;
         inputBox.focus();
         addBtn.value = "Edit";
+        editTODO = e;
     }
 
-    
+
 }
 
 
