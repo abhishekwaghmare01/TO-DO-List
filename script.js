@@ -33,4 +33,21 @@ const addTodo = ()=> {
         todoList.appendChild(li);
         inputBox.value = "";
     }
+
+const updateTodo = (e)=>{
+    // console.log(e.target.innerHTML);
+    if(e.target.innerHTML === "Remove"){
+        todoList.removeChild(e.target.parentElement); 
+    }
+    if(e.target.innerHTML === "Edit"){
+        inputBox.value = e.target.previousElementSibling.innerHTML;
+        inputBox.focus();
+        addBtn.value = "Edit";
+    }
+
+    
+}
+
+
 addBtn.addEventListener('click', addTodo);
+todoList.addEventListener('click', updateTodo);
